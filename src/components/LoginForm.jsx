@@ -26,21 +26,30 @@ function LoginForm() {
       type: 'LOGIN_START',
     })
 
-    const user = findUser(
-      username,
-      password
-    )
+    try {
+      const user = findUser(
+        username,
+        password
+      )
 
-    if (user) {
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: user,
-      })
-    } else {
+      if (user) {
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: user,
+        })
+      } else {
+        dispatch({
+          type: 'LOGIN_FAILURE',
+          payload:
+            'Tên đăng nhập hoặc mật khẩu không đúng',
+        })
+      }
+    } catch (err) {
+      console.error('Login error:', err)
       dispatch({
         type: 'LOGIN_FAILURE',
         payload:
-          'Tên đăng nhập hoặc mật khẩu không đúng',
+          'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.',
       })
     }
   }

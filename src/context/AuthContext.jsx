@@ -12,6 +12,22 @@ const initialState = {
   isLoading: false // EXT-01: Quản lý trạng thái loading khi đăng nhập
 }
 
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch (e) {
+    console.error(`Failed to write "${key}" to localStorage:`, e)
+  }
+}
+
+function safeRemoveItem(key) {
+  try {
+    localStorage.removeItem(key)
+  } catch (e) {
+    console.error(`Failed to remove "${key}" from localStorage:`, e)
+  }
+}
+
 /**
  * Hàm khởi tạo trạng thái thông minh cho EXT-04 (Persist Login)
  * Giúp giữ trạng thái đăng nhập khi làm mới trang trên trình duyệt,
@@ -35,9 +51,18 @@ const init = (initial) => {
     }
   } catch (e) {
     console.error('Không thể đọc dữ liệu từ localStorage:', e)
+    safeRemoveItem('user')
   }
   return initial
 }
+
+const KNOWN_ACTIONS = new Set([
+  'LOGIN_START',
+  'LOGIN_SUCCESS',
+  'LOGIN_FAILURE',
+  'CHANGE_PASSWORD',
+  'LOGOUT',
+])
 
 // Reducer xử lý các hành động thay đổi trạng thái Auth
 const authReducer = (state, action) => {
@@ -56,7 +81,7 @@ const authReducer = (state, action) => {
       }
 
       // EXT-04: Lưu thông tin đăng nhập vào bộ nhớ trình duyệt
-      localStorage.setItem('user', JSON.stringify(userData))
+      safeSetItem('user', userData)
 
       return {
         ...state,
@@ -83,7 +108,7 @@ const authReducer = (state, action) => {
       }
 
       // Cập nhật lại chuỗi thông tin mới vào storage
-      localStorage.setItem('user', JSON.stringify(updatedUser))
+      safeSetItem('user', updatedUser)
 
       return {
         ...state,
@@ -93,7 +118,7 @@ const authReducer = (state, action) => {
 
     case 'LOGOUT':
       // EXT-04: Xóa sạch dữ liệu trong storage khi người dùng đăng xuất
-      localStorage.removeItem('user')
+      safeRemoveItem('user')
 
       return {
         isAuthenticated: false,
@@ -103,6 +128,9 @@ const authReducer = (state, action) => {
       }
 
     default:
+      if (!KNOWN_ACTIONS.has(action.type)) {
+        console.warn(`AuthReducer: unhandled action type "${action.type}"`)
+      }
       return state
   }
 }

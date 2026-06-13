@@ -56,12 +56,20 @@ function RegistrationForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (validateForm()) {
-      console.log('Đăng ký thành công:', formData);
-      setShowSuccessModal(true);   // Mở Modal
+    try {
+      if (validateForm()) {
+        console.log('Đăng ký thành công:', formData);
+        setShowSuccessModal(true);
+      }
+    } catch (err) {
+      console.error('Registration error:', err);
+      setErrors(prev => ({
+        ...prev,
+        username: 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.',
+      }));
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setIsSubmitting(false);
   };
 
   const handleCancel = () => {

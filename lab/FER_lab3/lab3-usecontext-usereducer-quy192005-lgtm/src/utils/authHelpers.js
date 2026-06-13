@@ -1,9 +1,15 @@
 import USERS from '../data/users'
 
 export function findUser(username, password) {
-    const user = USERS.find(u => u.username === username && u.password === password)
+  if (typeof username !== 'string' || typeof password !== 'string') {
+    return null
+  }
 
-    return user || null;
+  if (!Array.isArray(USERS)) {
+    console.error('findUser: USERS data is not an array')
+    return null
+  }
 
-  // Trả về object user nếu tìm thấy, null nếu không
+  const user = USERS.find(u => u.username === username && u.password === password)
+  return user || null
 }
