@@ -57,7 +57,6 @@ function RegistrationForm() {
     setIsSubmitting(true);
 
     if (validateForm()) {
-      console.log('Đăng ký thành công:', formData);
       setShowSuccessModal(true);   // Mở Modal
     }
     

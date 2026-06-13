@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Card, Form, Button, Alert, Toast } from 'react-bootstrap'
 import { useAuth } from '../hooks/useAuth'
+import { findUser } from '../utils/authHelpers'
 
 function ChangePasswordPage() {
   const { state, dispatch } = useAuth()
@@ -23,7 +24,7 @@ function ChangePasswordPage() {
       return
     }
 
-    if (currentPassword !== state.user.password) {
+    if (!findUser(state.user.username, currentPassword)) {
       setError('Mật khẩu hiện tại không đúng')
       return
     }

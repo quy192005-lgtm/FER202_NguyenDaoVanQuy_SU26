@@ -50,8 +50,9 @@ const authReducer = (state, action) => {
       }
 
     case 'LOGIN_SUCCESS': {
+      const { password: _pw, ...safePayload } = action.payload
       const userData = {
-        ...action.payload,
+        ...safePayload,
         loginTime: new Date().toLocaleString(),
       }
 
@@ -76,18 +77,17 @@ const authReducer = (state, action) => {
         isLoading: false,
       }
 
-    case 'CHANGE_PASSWORD': { // EXT-02: Xử lý đổi mật khẩu cho user hiện tại
+    case 'CHANGE_PASSWORD': {
       const updatedUser = {
         ...state.user,
-        password: action.payload,
       }
 
-      // Cập nhật lại chuỗi thông tin mới vào storage
       localStorage.setItem('user', JSON.stringify(updatedUser))
 
       return {
         ...state,
         user: updatedUser,
+        passwordChanged: true,
       }
     }
 

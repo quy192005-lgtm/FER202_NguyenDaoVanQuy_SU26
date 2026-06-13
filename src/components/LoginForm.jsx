@@ -109,7 +109,7 @@ function LoginForm() {
       </Card.Body>
 
       <Card.Footer>
-        Demo: admin / 123
+        Login with your credentials
       </Card.Footer>
     </Card>
   )
