@@ -2,13 +2,14 @@
 import React from 'react'
 import { Navbar, Container, Button } from 'react-bootstrap'
 import { useAuth } from '../hooks/useAuth'
+import { ACTION_TYPES } from '../utils/constants'
 
 function AppNavbar() {
   const { state, dispatch } = useAuth()
   const { user } = state
 
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' })
+    dispatch({ type: ACTION_TYPES.LOGOUT })
   }
 
   return (

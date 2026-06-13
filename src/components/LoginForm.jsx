@@ -3,44 +3,37 @@ import {
   Card,
   Form,
   Button,
-  Alert,
   Spinner,
 } from 'react-bootstrap'
 
 import { useAuth } from '../hooks/useAuth'
 import { findUser } from '../utils/authHelpers'
+import { ACTION_TYPES, ERROR_MESSAGES } from '../utils/constants'
+import FormAlert from './FormAlert'
+import PasswordField from './PasswordField'
 
 function LoginForm() {
   const { state, dispatch } = useAuth()
 
-  const [username, setUsername] =
-    useState('')
-
-  const [password, setPassword] =
-    useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    dispatch({
-      type: 'LOGIN_START',
-    })
+    dispatch({ type: ACTION_TYPES.LOGIN_START })
 
-    const user = findUser(
-      username,
-      password
-    )
+    const user = findUser(username, password)
 
     if (user) {
       dispatch({
-        type: 'LOGIN_SUCCESS',
+        type: ACTION_TYPES.LOGIN_SUCCESS,
         payload: user,
       })
     } else {
       dispatch({
-        type: 'LOGIN_FAILURE',
-        payload:
-          'Tên đăng nhập hoặc mật khẩu không đúng',
+        type: ACTION_TYPES.LOGIN_FAILURE,
+        payload: ERROR_MESSAGES.INVALID_CREDENTIALS,
       })
     }
   }
@@ -55,37 +48,22 @@ function LoginForm() {
       </Card.Header>
 
       <Card.Body>
-        {state.error && (
-          <Alert variant="danger">
-            {state.error}
-          </Alert>
-        )}
+        <FormAlert message={state.error} />
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Control
               placeholder="Username"
               value={username}
-              onChange={(e) =>
-                setUsername(
-                  e.target.value
-                )
-              }
+              onChange={(e) => setUsername(e.target.value)}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) =>
-                setPassword(
-                  e.target.value
-                )
-              }
-            />
-          </Form.Group>
+          <PasswordField
+            placeholder="Password"
+            value={password}
+            onChange={setPassword}
+          />
 
           <Button
             type="submit"

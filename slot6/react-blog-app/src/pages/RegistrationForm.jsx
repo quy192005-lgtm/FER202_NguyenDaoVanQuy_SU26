@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Container, Card, Form, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import MyModal from '../components/MyModal';   // ← Import Modal
+import MyModal from '../components/MyModal';
+import { validateRegistrationForm } from '../utils/validationHelpers';
 
 function RegistrationForm() {
   const navigate = useNavigate();
@@ -26,51 +27,29 @@ function RegistrationForm() {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.username.trim()) newErrors.username = 'Username là bắt buộc';
-    else if (formData.username.length < 3) newErrors.username = 'Username phải có ít nhất 3 ký tự';
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) newErrors.email = 'Email là bắt buộc';
-    else if (!emailRegex.test(formData.email)) newErrors.email = 'Email không đúng định dạng';
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    if (!formData.password) newErrors.password = 'Password là bắt buộc';
-    else if (formData.password.length < 6) newErrors.password = 'Password phải có ít nhất 6 ký tự';
-    else if (!passwordRegex.test(formData.password)) {
-      newErrors.password = 'Password phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt';
-    }
-
-    if (!formData.confirmPassword) newErrors.confirmPassword = 'Vui lòng xác nhận password';
-    else if (formData.confirmPassword !== formData.password) {
-      newErrors.confirmPassword = 'Password xác nhận không khớp';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (validateForm()) {
+    const newErrors = validateRegistrationForm(formData);
+
+    if (Object.keys(newErrors).length === 0) {
       console.log('Đăng ký thành công:', formData);
-      setShowSuccessModal(true);   // Mở Modal
+      setShowSuccessModal(true);
+    } else {
+      setErrors(newErrors);
     }
     
     setIsSubmitting(false);
   };
 
   const handleCancel = () => {
-    navigate('/posts'); // Quay về danh sách bài viết nếu hủy
+    navigate('/posts');
   };
 
   const handleModalClose = () => {
     setShowSuccessModal(false);
-    navigate('/posts');   // Chuyển hướng về trang chủ Blog sau khi đóng modal
+    navigate('/posts');
   };
 
   return (
@@ -82,7 +61,6 @@ function RegistrationForm() {
         
         <Card.Body className="p-4">
           <Form onSubmit={handleSubmit}>
-            {/* Các trường form giữ nguyên như trước */}
             <Form.Group className="mb-3">
               <Form.Label>Username <span className="text-danger">*</span></Form.Label>
               <Form.Control
@@ -158,7 +136,6 @@ function RegistrationForm() {
         </Card.Body>
       </Card>
 
-      {/* MyModal Success */}
       <MyModal
         show={showSuccessModal}
         onHide={handleModalClose}

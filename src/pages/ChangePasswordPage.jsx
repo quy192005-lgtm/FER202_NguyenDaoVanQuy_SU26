@@ -1,7 +1,11 @@
 // src/pages/ChangePasswordPage.jsx
 import React, { useState } from 'react'
-import { Card, Form, Button, Alert, Toast } from 'react-bootstrap'
+import { Card, Form, Button, Toast } from 'react-bootstrap'
 import { useAuth } from '../hooks/useAuth'
+import { ACTION_TYPES, ERROR_MESSAGES } from '../utils/constants'
+import { validatePasswordChange } from '../utils/validationHelpers'
+import FormAlert from '../components/FormAlert'
+import PasswordField from '../components/PasswordField'
 
 function ChangePasswordPage() {
   const { state, dispatch } = useAuth()
@@ -17,34 +21,28 @@ function ChangePasswordPage() {
     e.preventDefault()
     setError('')
 
-    // Kiểm tra tính bảo mật khi bóc tách thông tin user phòng trường hợp chưa đăng nhập
     if (!state.user) {
-      setError('Bạn cần đăng nhập để thực hiện chức năng này')
+      setError(ERROR_MESSAGES.NOT_LOGGED_IN)
       return
     }
 
-    if (currentPassword !== state.user.password) {
-      setError('Mật khẩu hiện tại không đúng')
+    const validationError = validatePasswordChange(
+      currentPassword,
+      state.user.password,
+      newPassword,
+      confirmPassword
+    )
+
+    if (validationError) {
+      setError(validationError)
       return
     }
 
-    if (newPassword.length < 6) {
-      setError('Mật khẩu mới phải có ít nhất 6 ký tự')
-      return
-    }
-
-    if (newPassword !== confirmPassword) {
-      setError('Xác nhận mật khẩu không khớp')
-      return
-    }
-
-    // Gửi action cập nhật mật khẩu lên reducer toàn cục
     dispatch({
-      type: 'CHANGE_PASSWORD',
+      type: ACTION_TYPES.CHANGE_PASSWORD,
       payload: newPassword,
     })
 
-    // Reset lại form sau khi đổi thành công
     setCurrentPassword('')
     setNewPassword('')
     setConfirmPassword('')
@@ -57,49 +55,37 @@ function ChangePasswordPage() {
       <Card.Body>
         <h4 className="mb-3">Change Password</h4>
 
-        {error && (
-          <Alert variant="danger" role="alert">
-            {error}
-          </Alert>
-        )}
+        <FormAlert message={error} />
 
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-2">
-            <Form.Control
-              type="password"
-              placeholder="Current Password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <PasswordField
+            placeholder="Current Password"
+            value={currentPassword}
+            onChange={setCurrentPassword}
+            required
+            className="mb-2"
+          />
 
-          <Form.Group className="mb-2">
-            <Form.Control
-              type="password"
-              placeholder="New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <PasswordField
+            placeholder="New Password"
+            value={newPassword}
+            onChange={setNewPassword}
+            required
+            className="mb-2"
+          />
 
-          <Form.Group className="mb-3">
-            <Form.Control
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <PasswordField
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            required
+          />
 
           <Button type="submit" variant="primary">
             Save
           </Button>
         </Form>
 
-        {/* Khối hiển thị Toast thông báo thành công */}
         <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 11 }}>
           <Toast
             show={showToast}
