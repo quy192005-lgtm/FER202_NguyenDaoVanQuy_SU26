@@ -1,0 +1,81 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "student01@fpt.edu.vn",
+      "studentCode": "SE170001",
+      "password": "123456",
+      "fullName": "Nguyen Van An"
+    },
+    {
+      "id": "2",
+      "email": "student02@fpt.edu.vn",
+      "studentCode": "SE170002",
+      "password": "123456",
+      "fullName": "Tran Thi Bich"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "1",
+      "userId": 1,
+      "course": "FER202",
+      "topic": "React Hooks",
+      "rating": "2",
+      "comment": "Vi du de hieu qua",
+      "date": "03-02-2026",
+      "image": "/images/image.jpg"
+    },
+    {
+      "id": "2",
+      "userId": 2,
+      "course": "FER202",
+      "topic": "React Router",
+      "rating": 4,
+      "comment": "Can them bai tap nested routes.",
+      "date": "2025-10-05",
+      "image": "/images/image.jpg"
+    },
+    {
+      "id": "3",
+      "userId": 1,
+      "course": "SDN202",
+      "topic": "Redux Toolkit",
+      "rating": 3,
+      "comment": "Phan slice hoi kho, can them huong dan.",
+      "date": "2025-10-09",
+      "image": "/images/image.jpg"
+    },
+    {
+      "userId": "1",
+      "course": "quy",
+      "topic": "",
+      "rating": "1",
+      "comment": "",
+      "date": "18-06-2026",
+      "image": "/images/image.jpg",
+      "id": "NBCTwNWRC_o"
+    },
+    {
+      "userId": "1",
+      "course": "quy",
+      "topic": "java",
+      "rating": "5",
+      "comment": "can hoc them",
+      "date": "18-06-2026",
+      "image": "/images/image.jpg",
+      "id": "jHsU3XE1XAE"
+    },
+    {
+      "userId": "1",
+      "course": "vn",
+      "topic": "jnb",
+      "rating": "1",
+      "comment": "mm",
+      "date": "18-06-2026",
+      "image": "/images/image.jpg",
+      "id": "vfdO497BAOA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

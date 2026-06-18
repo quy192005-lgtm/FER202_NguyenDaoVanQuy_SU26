@@ -1,0 +1,234 @@
+body {
+  background-color: #ffffff;
+  font-size: 14px;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+.login-card {
+  width: 430px;
+  border: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.login-title {
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+
+.login-actions .btn {
+  width: 150px;
+}
+
+.main-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 10px 0;
+}
+
+.main-header .container,
+.dashboard-wrapper,
+.footer-demo .container {
+  max-width: 1380px;
+}
+
+.logo-img {
+  width: 48px;
+  height: 30px;
+  object-fit: contain;
+  margin-right: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.app-name {
+  color: #111827;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.signed-in {
+  color: #666;
+  font-size: 12px;
+}
+
+.signed-in strong {
+  color: #333;
+}
+
+.dashboard-wrapper {
+  padding-top: 28px;
+}
+
+.feedback-card {
+  min-height: 324px;
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.feedback-card .card-body {
+  padding: 18px 20px 22px;
+}
+
+.card-title-custom {
+  color: #111827;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 0 0 18px;
+}
+
+.feedback-form label {
+  color: #222;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.feedback-form .form-control,
+.feedback-form .form-select {
+  min-height: 36px;
+  border-color: #d8dbe0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.feedback-form textarea.form-control {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.add-feedback-btn {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #2563eb;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.add-feedback-btn:hover,
+.add-feedback-btn:focus {
+  background-color: #1d4ed8;
+}
+
+.feedback-table {
+  border-color: #dcdfe4;
+  font-size: 14px;
+}
+
+.feedback-table th {
+  padding: 10px;
+  color: #000;
+  background: #ffffff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.feedback-table td {
+  padding: 12px 10px;
+  vertical-align: top;
+  color: #000;
+  font-size: 14px;
+}
+
+.feedback-table td,
+.feedback-table th {
+  border-color: #dcdfe4;
+}
+
+.feedback-table tbody tr:nth-child(odd) td {
+  background-color: #eeeeee;
+}
+
+.feedback-table tbody tr:nth-child(even) td {
+  background-color: #ffffff;
+}
+
+.feedback-table td:nth-child(1) {
+  width: 90px;
+  white-space: nowrap;
+}
+
+.feedback-table td:nth-child(2) {
+  width: 140px;
+}
+
+.feedback-table td:nth-child(3) {
+  width: 70px;
+}
+
+.feedback-table td:nth-child(5) {
+  width: 100px;
+}
+
+.actions-heading,
+.table-actions {
+  width: 118px;
+}
+
+.table-actions {
+  white-space: nowrap;
+}
+
+.table-actions .btn {
+  min-width: 56px;
+  margin-right: 8px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.table-actions .btn:last-child {
+  margin-right: 0;
+}
+
+.table-actions .btn-warning {
+  color: #111;
+}
+
+.footer-demo {
+  border-top: 1px solid #e5e5e5;
+  background-color: #f8f9fa;
+  padding: 14px 0;
+  margin-top: 20px;
+  color: #555;
+  font-size: 13px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 991.98px) {
+  .dashboard-wrapper {
+    padding-top: 16px;
+  }
+
+  .feedback-card {
+    min-height: 0;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+}

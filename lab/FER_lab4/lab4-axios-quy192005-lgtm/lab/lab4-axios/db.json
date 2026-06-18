@@ -1,0 +1,55 @@
+{
+  "accounts": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "123456",
+      "userId": null,
+      "role": "Admin"
+    },
+    {
+      "id": "2",
+      "username": "manager",
+      "password": "123456",
+      "userId": "2",
+      "role": "Manager"
+    },
+    {
+      "id": "3",
+      "username": "user1",
+      "password": "123456",
+      "userId": "3",
+      "role": "User"
+    }
+  ],
+  "users": [
+    {
+      "id": "2",
+      "fullName": "Manager User",
+      "email": "manager@example.com",
+      "phone": "0900000002",
+      "role": "Manager",
+      "status": "active",
+      "createdAt": "2026-06-18"
+    },
+    {
+      "id": "3",
+      "fullName": "Regular User",
+      "email": "user@example.com",
+      "phone": "0900000003",
+      "role": "User",
+      "status": "inactive",
+      "createdAt": "2026-06-18"
+    },
+    {
+      "fullName": "Admin Userfgjf",
+      "email": "admin@example.còam",
+      "phone": "0900000001",
+      "role": "User",
+      "status": "active",
+      "createdAt": "2026-06-18",
+      "id": "C7c1tkN8gZ0"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
